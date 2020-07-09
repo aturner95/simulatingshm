@@ -46,9 +46,14 @@ public class Plotter extends AbstractAnalysis {
 		}
 
 		for (int j = 0; j < numOfBodies; j++) {
-			float red = (float) Math.random();
-			float green = (float) Math.random();
-			float blue = (float) Math.random();
+			//float red = (float) Math.random();
+			//float green = (float) Math.random();
+			//float blue = (float) Math.random();
+			//float a = 250;
+			
+			float red = 0;
+			float green = 0;
+			float blue = 0;
 			float a = 250;
 			Color color = new Color(red, green, blue, a);
 			
