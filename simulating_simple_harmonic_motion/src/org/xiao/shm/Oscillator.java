@@ -1,7 +1,22 @@
 package org.xiao.shm;
 
-public class Oscillator {
+import java.io.Serializable;
 
+/**
+ * Oscillator bean class. JavaFX files seem to want to deal with String,
+ * hence why this class may look a bit strange, double fields however
+ * encapsulated as Strings...
+ * 
+ * @author Drew
+ *
+ */
+
+public class Oscillator implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double x;
 	private double v;
 	private double w0;

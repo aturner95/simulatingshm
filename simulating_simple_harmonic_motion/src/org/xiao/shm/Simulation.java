@@ -2,6 +2,13 @@ package org.xiao.shm;
 
 import org.jzy3d.analysis.AnalysisLauncher;
 
+/**
+ * Computes time vs position for oscillator
+ * 
+ * @author Drew
+ *
+ */
+
 public class Simulation {
 
 	private int numOfIterations = 1000;
@@ -15,9 +22,6 @@ public class Simulation {
 	private double time = 0.0;
 	private final double dt = h;
 
-	private double[] y0Store = new double[numOfIterations];
-	private double[] x0Store = new double[numOfIterations];
-	
 	public void derivatives(double[] y, double[] dydt) {
 		dydt[0] = y[1];
 		dydt[1] = -((2 * zeta * w0 * y[1]) + (w0 * w0 * y[0]));
@@ -54,21 +58,34 @@ public class Simulation {
 		}
 	}
 
-	public void run(Oscillator spring) throws Exception{
+	public void run(Oscillator oscillatorArr[]) throws Exception {
 
-		double[] y = spring.getY();
-		double[] dydt = spring.getdYdt();
+		int numOfBodies = oscillatorArr.length;
 
-		w0 = Double.valueOf(spring.getW0());
-		zeta = Double.valueOf(spring.getZeta());
+		double[][] y0Store = new double[numOfBodies][numOfIterations];
+		double[][] x0Store = new double[numOfBodies][numOfIterations];
 
 		for (int i = 0; i < numOfIterations; i++) {
+
 			time = time + dt;
-			RK4Routine(y, dydt);
-			y0Store[i] = y[0];
-			x0Store[i] = time;
+			
+
+			for (int j = 0; j < numOfBodies; j++) {
+
+				Oscillator oscillator = oscillatorArr[j];
+
+				double[] y = oscillator.getY();
+				double[] dydt = oscillator.getdYdt();
+
+				w0 = Double.valueOf(oscillator.getW0());
+				zeta = Double.valueOf(oscillator.getZeta());
+
+				RK4Routine(y, dydt);
+				y0Store[j][i] = y[0];
+				x0Store[j][i] = time;
+
+			}
 		}
-		
 		Plotter plot = new Plotter(x0Store, y0Store);
 		AnalysisLauncher.open(plot);
 	}

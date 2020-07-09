@@ -24,10 +24,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Pretty much stolen from the Oracle website
+ * The UI in JavaFX - Pretty much stolen from the Oracle website
  * https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
  * 
- * @author Andy
+ * @author Drew
  *
  */
 
@@ -186,7 +186,7 @@ public class UserInterface extends Application {
                 
                 try {
                 Simulation sim = new Simulation();
-                sim.run(data.get(0));
+                sim.run(data.toArray(new Oscillator[0]));
                 }
                 catch(Exception ex) {
                 	
